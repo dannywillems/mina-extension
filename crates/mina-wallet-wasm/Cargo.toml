@@ -1,0 +1,43 @@
+[package]
+name = "mina-wallet-wasm"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "WebAssembly bindings for Mina wallet operations"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# Mina crypto from proof-systems
+mina-signer = { workspace = true }
+mina-curves = { workspace = true }
+mina-hasher = { workspace = true }
+o1-utils = { workspace = true }
+
+# WASM bindings
+wasm-bindgen = { workspace = true }
+serde-wasm-bindgen = { workspace = true }
+js-sys = { workspace = true }
+getrandom = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Crypto utilities
+rand = { workspace = true }
+hex = { workspace = true }
+
+# Error handling
+thiserror = { workspace = true }
+
+[dev-dependencies]
+wasm-bindgen-test = { workspace = true }
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O4", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
+
+[package.metadata.wasm-pack.profile.dev]
+wasm-opt = false

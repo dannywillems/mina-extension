@@ -1,0 +1,383 @@
+// =============================================================================
+// Variables
+// =============================================================================
+
+$primary-color: #9945ff; // Mina purple
+$primary-dark: #7a35d9;
+$secondary-color: #14f195; // Mina green
+$background-color: #0d0d0d;
+$surface-color: #1a1a1a;
+$border-color: #333;
+$text-primary: #ffffff;
+$text-secondary: #aaaaaa;
+$error-color: #ff4444;
+$success-color: #44ff44;
+
+$popup-width: 360px;
+$popup-height: 540px;
+$border-radius: 12px;
+$border-radius-sm: 8px;
+
+// =============================================================================
+// Base
+// =============================================================================
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: $popup-width;
+  height: $popup-height;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: $background-color;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+// =============================================================================
+// Layout
+// =============================================================================
+
+.popup-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+}
+
+// =============================================================================
+// Header
+// =============================================================================
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.network-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &.mainnet {
+    background-color: rgba($secondary-color, 0.2);
+    color: $secondary-color;
+  }
+
+  &.devnet {
+    background-color: rgba($primary-color, 0.2);
+    color: $primary-color;
+  }
+}
+
+// =============================================================================
+// Views
+// =============================================================================
+
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// Loading View
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $border-color;
+  border-top-color: $primary-color;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Locked View
+.locked-content,
+.setup-content {
+  width: 100%;
+  text-align: center;
+}
+
+.lock-icon,
+.welcome-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+p {
+  color: $text-secondary;
+  margin-bottom: 24px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+input[type='password'],
+input[type='text'] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  background-color: $surface-color;
+  color: $text-primary;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $primary-color;
+  }
+
+  &::placeholder {
+    color: $text-secondary;
+  }
+}
+
+.error-message {
+  color: $error-color;
+  font-size: 12px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+// Setup View
+.setup-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+// =============================================================================
+// Buttons
+// =============================================================================
+
+.btn {
+  width: 100%;
+  padding: 12px 24px;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  color: $text-primary;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-dark;
+  }
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: $text-primary;
+  border: 1px solid $border-color;
+
+  &:hover:not(:disabled) {
+    background-color: $surface-color;
+  }
+}
+
+// =============================================================================
+// Main View
+// =============================================================================
+
+#main-view {
+  justify-content: flex-start;
+}
+
+// Account Card
+.account-card {
+  width: 100%;
+  padding: 20px;
+  background: linear-gradient(135deg, $primary-color, $primary-dark);
+  border-radius: $border-radius;
+  margin-bottom: 20px;
+}
+
+.account-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.account-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-address-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.account-address {
+  font-size: 13px;
+  font-family: 'SF Mono', Monaco, 'Courier New', monospace;
+  opacity: 0.8;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.account-balance-container {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.account-balance {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.currency {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+// Action Buttons
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background-color: $surface-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  color: $text-primary;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: lighten($surface-color, 5%);
+    border-color: $primary-color;
+  }
+}
+
+.action-icon {
+  font-size: 18px;
+}
+
+// Transactions
+.transactions {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: $text-secondary;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 24px;
+  color: $text-secondary;
+  font-size: 13px;
+}
+
+// =============================================================================
+// Footer
+// =============================================================================
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid $border-color;
+  margin-top: auto;
+}
+
+.footer-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.version {
+  font-size: 11px;
+  color: $text-secondary;
+}

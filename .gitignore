@@ -1,0 +1,34 @@
+# Build artifacts
+/target/
+/extension/dist/
+/extension/pkg/
+
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Compiled CSS (generated from SCSS)
+extension/src/css/*.css
+extension/src/css/*.css.map

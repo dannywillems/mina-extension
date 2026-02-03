@@ -1,0 +1,19 @@
+{
+  "name": "mina-extension",
+  "version": "0.1.0",
+  "private": true,
+  "author": "o1Labs",
+  "license": "MIT",
+  "description": "Mina Protocol wallet browser extension",
+  "devDependencies": {
+    "@types/chrome": "^0.0.287",
+    "esbuild": "^0.25.0",
+    "prettier": "^3.5.0",
+    "sass": "^1.83.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "bip39": "^3.1.0",
+    "graphql-request": "^7.1.2"
+  }
+}

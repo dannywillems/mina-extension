@@ -1,0 +1,44 @@
+[workspace]
+resolver = "3"
+members = ["crates/mina-wallet-wasm"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+authors = ["o1Labs"]
+license = "MIT"
+
+[workspace.dependencies]
+# Mina crypto from proof-systems (relative paths)
+mina-signer = { path = "../proof-systems/signer" }
+mina-curves = { path = "../proof-systems/curves" }
+mina-hasher = { path = "../proof-systems/hasher" }
+mina-poseidon = { path = "../proof-systems/poseidon" }
+o1-utils = { path = "../proof-systems/utils" }
+
+# WASM bindings
+wasm-bindgen = "0.2.108"
+serde-wasm-bindgen = "0.6.5"
+js-sys = "0.3.85"
+getrandom = { version = "0.2", features = ["js"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Crypto utilities
+rand = "0.8"
+hex = "0.4"
+bs58 = "0.5"
+sha2 = "0.10"
+
+# Error handling
+thiserror = "2.0"
+
+# Dev dependencies
+wasm-bindgen-test = "0.3.58"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

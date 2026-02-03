@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=360, initial-scale=1.0" />
+    <title>Mina Wallet</title>
+    <link rel="stylesheet" href="css/popup.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+          <span class="logo-text">Mina Wallet</span>
+        </div>
+        <span id="network-badge" class="network-badge mainnet">Mainnet</span>
+      </header>
+
+      <!-- Loading View -->
+      <div id="loading-view" class="view">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+
+      <!-- Locked View -->
+      <div id="locked-view" class="view hidden">
+        <div class="locked-content">
+          <div class="lock-icon">🔒</div>
+          <h2>Wallet Locked</h2>
+          <p>Enter your password to unlock</p>
+
+          <div class="input-group">
+            <input
+              type="password"
+              id="password-input"
+              placeholder="Password"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <div id="unlock-error" class="error-message hidden"></div>
+
+          <button id="unlock-button" class="btn btn-primary">Unlock</button>
+        </div>
+      </div>
+
+      <!-- Setup View (No Wallet) -->
+      <div id="setup-view" class="view hidden">
+        <div class="setup-content">
+          <div class="welcome-icon">👋</div>
+          <h2>Welcome to Mina Wallet</h2>
+          <p>
+            Get started by creating a new wallet or importing an existing one
+          </p>
+
+          <div class="setup-buttons">
+            <button id="create-wallet-button" class="btn btn-primary">
+              Create New Wallet
+            </button>
+            <button id="import-wallet-button" class="btn btn-secondary">
+              Import Wallet
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main View -->
+      <div id="main-view" class="view hidden">
+        <!-- Account Info -->
+        <div class="account-card">
+          <div class="account-header">
+            <span id="account-name" class="account-name">Account 1</span>
+          </div>
+          <div class="account-address-container">
+            <span id="account-address" class="account-address"
+              >B62q...abc123</span
+            >
+            <button class="copy-btn" title="Copy address">📋</button>
+          </div>
+          <div class="account-balance-container">
+            <span id="account-balance" class="account-balance">0.00</span>
+            <span class="currency">MINA</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+          <button id="send-button" class="action-btn">
+            <span class="action-icon">↑</span>
+            <span>Send</span>
+          </button>
+          <button id="receive-button" class="action-btn">
+            <span class="action-icon">↓</span>
+            <span>Receive</span>
+          </button>
+          <button id="stake-button" class="action-btn">
+            <span class="action-icon">⚡</span>
+            <span>Stake</span>
+          </button>
+        </div>
+
+        <!-- Transaction History Placeholder -->
+        <div class="transactions">
+          <h3>Recent Activity</h3>
+          <div class="empty-state">
+            <p>No transactions yet</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <button id="lock-button" class="footer-btn" title="Lock wallet">
+          🔒
+        </button>
+        <span id="version-text" class="version">v0.1.0</span>
+        <button id="settings-button" class="footer-btn" title="Settings">
+          ⚙️
+        </button>
+      </footer>
+    </div>
+
+    <script src="js/popup.js"></script>
+  </body>
+</html>
