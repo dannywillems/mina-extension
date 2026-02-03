@@ -31,8 +31,13 @@ mina-extension/
 │   │   └── manifest.json     # Chrome Manifest V3
 │   └── dist/                 # Built extension (generated)
 │
+├── e2e/                      # End-to-end tests
+│   ├── fixtures/             # Playwright fixtures
+│   └── tests/                # Test specifications
+│
 ├── Cargo.toml                # Rust workspace
 ├── Makefile                  # Build commands
+├── playwright.config.ts      # Playwright configuration
 └── package.json              # Node dependencies
 ```
 
@@ -76,6 +81,18 @@ make typecheck
 # Format code
 make format
 make prettify
+
+# Run e2e tests
+make e2e
+
+# Run e2e tests with UI
+make e2e-ui
+
+# Run e2e tests in headed mode (visible browser)
+make e2e-headed
+
+# Debug e2e tests
+make e2e-debug
 ```
 
 ## Loading the Extension
@@ -97,6 +114,7 @@ This is an initial scaffold with the following implemented:
 - [x] Content script with provider injection
 - [x] Inpage provider (`window.mina`)
 - [x] Basic popup UI
+- [x] End-to-end tests with Playwright
 
 ### TODO
 
@@ -117,6 +135,7 @@ This is an initial scaffold with the following implemented:
 - **TypeScript**: Strict mode, Chrome extension types
 - **Build**: esbuild, sass
 - **Styling**: SCSS
+- **Testing**: Playwright (e2e)
 
 ## License
 

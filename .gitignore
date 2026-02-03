@@ -32,3 +32,8 @@ Thumbs.db
 # Compiled CSS (generated from SCSS)
 extension/src/css/*.css
 extension/src/css/*.css.map
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/

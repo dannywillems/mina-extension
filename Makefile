@@ -211,6 +211,34 @@ check-trailing-whitespace: ## Check for trailing whitespaces in source files
 	fi
 
 # =============================================================================
+# E2E Testing (Playwright)
+# =============================================================================
+
+.PHONY: e2e
+e2e: extension-build ## Run e2e tests with Playwright
+	npx playwright test
+
+.PHONY: e2e-ui
+e2e-ui: extension-build ## Run e2e tests with Playwright UI
+	npx playwright test --ui
+
+.PHONY: e2e-headed
+e2e-headed: extension-build ## Run e2e tests in headed mode (visible browser)
+	npx playwright test --headed
+
+.PHONY: e2e-debug
+e2e-debug: extension-build ## Run e2e tests in debug mode
+	npx playwright test --debug
+
+.PHONY: e2e-report
+e2e-report: ## Show the last e2e test report
+	npx playwright show-report
+
+.PHONY: playwright-install
+playwright-install: ## Install Playwright browsers
+	npx playwright install chromium
+
+# =============================================================================
 # Setup and dependencies
 # =============================================================================
 
@@ -223,6 +251,8 @@ setup: ## Setup development environment
 	cargo install wasm-pack || true
 	@echo "==> Installing npm dependencies..."
 	npm install
+	@echo "==> Installing Playwright browsers..."
+	npx playwright install chromium
 	@echo "==> Setup complete!"
 
 # =============================================================================
