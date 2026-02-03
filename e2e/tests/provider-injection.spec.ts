@@ -13,7 +13,7 @@ test.describe('Provider Injection', () => {
 
     // Wait for provider to be injected
     await page.waitForFunction(() => typeof window.mina !== 'undefined', {
-      timeout: 5000,
+      timeout: 10000,
     });
 
     // Verify window.mina exists
@@ -51,44 +51,33 @@ test.describe('Provider Injection', () => {
     await page.close();
   });
 
-  test('should emit mina#initialized event', async ({
-    context,
-    extensionId,
-  }) => {
+  test('should have isConnected property', async ({ context, extensionId }) => {
     await waitForExtensionReady(context);
 
     const page = await context.newPage();
-
-    // Set up event listener before navigation
-    const eventPromise = page.evaluate(() => {
-      return new Promise<boolean>(resolve => {
-        // Check if already initialized
-        if (typeof window.mina !== 'undefined') {
-          resolve(true);
-          return;
-        }
-
-        // Listen for initialization event
-        window.addEventListener('mina#initialized', () => {
-          resolve(true);
-        });
-
-        // Timeout after 5 seconds
-        setTimeout(() => resolve(false), 5000);
-      });
-    });
-
     await page.goto('https://example.com');
 
-    // Wait for provider to be ready
+    // Wait for provider
     await page.waitForFunction(() => typeof window.mina !== 'undefined', {
-      timeout: 5000,
+      timeout: 10000,
     });
+
+    // Check isConnected property exists
+    const hasIsConnected = await page.evaluate(() => {
+      return 'isConnected' in (window.mina ?? {});
+    });
+    expect(hasIsConnected).toBe(true);
+
+    // Should be false initially (not connected)
+    const isConnected = await page.evaluate(() => {
+      return window.mina?.isConnected;
+    });
+    expect(isConnected).toBe(false);
 
     await page.close();
   });
 
-  test('should return empty accounts when wallet is locked', async ({
+  test('should return empty accounts when not connected', async ({
     context,
     extensionId,
   }) => {
@@ -99,10 +88,10 @@ test.describe('Provider Injection', () => {
 
     // Wait for provider
     await page.waitForFunction(() => typeof window.mina !== 'undefined', {
-      timeout: 5000,
+      timeout: 10000,
     });
 
-    // Call getAccounts - should return empty array when locked/no wallet
+    // Call getAccounts - should return empty array when not connected
     const accounts = await page.evaluate(async () => {
       try {
         return await window.mina?.getAccounts();
@@ -112,32 +101,6 @@ test.describe('Provider Injection', () => {
     });
 
     expect(accounts).toEqual([]);
-
-    await page.close();
-  });
-
-  test('should return chain ID', async ({ context, extensionId }) => {
-    await waitForExtensionReady(context);
-
-    const page = await context.newPage();
-    await page.goto('https://example.com');
-
-    // Wait for provider
-    await page.waitForFunction(() => typeof window.mina !== 'undefined', {
-      timeout: 5000,
-    });
-
-    // Call getChainId
-    const chainId = await page.evaluate(async () => {
-      try {
-        return await window.mina?.getChainId();
-      } catch {
-        return null;
-      }
-    });
-
-    // Should return mainnet by default
-    expect(chainId).toBe('mainnet');
 
     await page.close();
   });

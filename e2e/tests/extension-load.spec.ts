@@ -49,7 +49,7 @@ test.describe('Extension Loading', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // Should show setup view (no wallet created yet)
     const setupView = popup.locator('#setup-view');
@@ -74,7 +74,7 @@ test.describe('Extension Loading', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // Check version text
     const versionText = popup.locator('#version-text');

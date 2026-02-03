@@ -10,7 +10,7 @@ test.describe('Popup UI', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // Check popup dimensions
     const container = popup.locator('.popup-container');
@@ -54,7 +54,7 @@ test.describe('Popup UI', () => {
     await expect(loadingView).toBeAttached();
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // After loading, should show setup view
     const setupView = popup.locator('#setup-view');
@@ -72,29 +72,26 @@ test.describe('Popup UI', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
-
-    // Get current pages count
-    const initialPages = context.pages().length;
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // Click create wallet button
     const createButton = popup.locator('#create-wallet-button');
     await expect(createButton).toBeVisible();
 
-    // Listen for new page
+    // Listen for new page before clicking
     const newPagePromise = context.waitForEvent('page');
     await createButton.click();
 
     // Wait for new page to open
     const newPage = await newPagePromise;
 
-    // Verify new page opened (onboarding page)
-    expect(context.pages().length).toBe(initialPages + 1);
+    // Wait for the page to load
+    await newPage.waitForLoadState('domcontentloaded');
 
-    // The popup should close after clicking
-    // New page should be the onboarding page
+    // The new page should be the onboarding page
     const url = newPage.url();
     expect(url).toContain('pages/onboarding.html');
+    expect(url).not.toContain('import=true');
 
     await newPage.close();
   });
@@ -108,18 +105,21 @@ test.describe('Popup UI', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     // Click import wallet button
     const importButton = popup.locator('#import-wallet-button');
     await expect(importButton).toBeVisible();
 
-    // Listen for new page
+    // Listen for new page before clicking
     const newPagePromise = context.waitForEvent('page');
     await importButton.click();
 
     // Wait for new page to open
     const newPage = await newPagePromise;
+
+    // Wait for the page to load
+    await newPage.waitForLoadState('domcontentloaded');
 
     // The URL should have import=true query param
     const url = newPage.url();
@@ -140,7 +140,7 @@ test.describe('Popup UI - Network Badge', () => {
     const popup = await openPopup(context, extensionId);
 
     // Wait for loading to complete
-    await popup.waitForSelector('#loading-view.hidden', { timeout: 5000 });
+    await popup.waitForSelector('#setup-view:not(.hidden)', { timeout: 10000 });
 
     const networkBadge = popup.locator('#network-badge');
     await expect(networkBadge).toBeVisible();

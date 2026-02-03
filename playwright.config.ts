@@ -29,8 +29,9 @@ export default defineConfig({
             `--disable-extensions-except=${path.resolve(__dirname, 'extension/dist')}`,
             `--load-extension=${path.resolve(__dirname, 'extension/dist')}`,
             '--no-sandbox',
+            '--headless=new', // New headless mode supports extensions
           ],
-          headless: false, // Extensions don't work in headless mode
+          headless: false, // Required for args to work, actual headless via --headless=new
         },
       },
     },
